@@ -11,6 +11,7 @@ public class Fenetre extends JFrame {
     // Création des variables:
     //int
     public int tailleMemory;
+    public boolean impossible;
     public int nbCaseMemory;
     public int nbVie;
     public int nbCarteRetournee;
@@ -27,7 +28,7 @@ public class Fenetre extends JFrame {
     //Button
     public JButton[] boutons;
     //ImageIcon
-    ImageIcon imageCarteDos;
+    public ImageIcon imageCarteDos;
     ImageIcon imagePiege;
     ImageIcon[] images;
     public ImageIcon imageScore;
@@ -41,6 +42,7 @@ public class Fenetre extends JFrame {
     public JMenuItem menuTaille5Fois5;
     public JMenuItem menuItemRecommencer;
     public JMenuItem menuItemScore;
+    public JCheckBoxMenuItem menuItemImpossible;
     //Label
     JLabel labelTemps;
     public JLabel labelTempsInt;
@@ -109,6 +111,8 @@ public class Fenetre extends JFrame {
         menuTaille5Fois5 = new JMenuItem("5 * 5");
         menuItemRecommencer = new JMenuItem("Recommencer");
         menuItemScore = new JMenuItem("Meilleur score");
+        menuItemImpossible = new JCheckBoxMenuItem("Impossible");
+        menuItemImpossible.setState(this.impossible);
         //Label
         labelTemps = new JLabel("Temps: ");
         labelTempsInt = new JLabel("0");
@@ -125,7 +129,7 @@ public class Fenetre extends JFrame {
         //int
         tailleMemory = n;
         nbCaseMemory = tailleMemory*tailleMemory;
-        nbVie = tailleMemory*2;
+        if (this.impossible) nbVie = 0; else nbVie = tailleMemory*2;
         // mise à jour du label vie
         labelVie = new JLabel("Nombre de vies restantes: " + nbVie);
         // mise en place des panels: temps et vie
@@ -136,7 +140,7 @@ public class Fenetre extends JFrame {
         for (int i=0; i<nbCaseMemory; i++) {
             // création des boutons
             boutons[i] = new JButton();
-            boutons[i].setIcon(imageCarteDos);
+            if (this.impossible) boutons[i].setIcon(images[i/2]); else boutons[i].setIcon(imageCarteDos);
             boutons[i].setDisabledIcon(images[i/2]);
             boutons[i].setPreferredSize(new Dimension(150, 150));
             boutons[i].setEnabled(true);
@@ -182,6 +186,7 @@ public class Fenetre extends JFrame {
         menuTaille.add(menuTaille5Fois5);
         menuOptions.add(menuItemRecommencer);
         menuOptions.add(menuItemScore);
+        menuOptions.add(menuItemImpossible);
         menuOptions.addSeparator();
         menuOptions.add(menuTaille);
         menuBar.add(menuOptions);
@@ -192,6 +197,7 @@ public class Fenetre extends JFrame {
         menuTaille5Fois5.addActionListener(controlMenu);
         menuItemRecommencer.addActionListener(controlMenu);
         menuItemScore.addActionListener(controlMenu);
+        menuItemImpossible.addActionListener(controlMenu);
         //retourne le menu
         return menuBar;
     }

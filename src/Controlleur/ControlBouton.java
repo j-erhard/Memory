@@ -25,6 +25,7 @@ public class ControlBouton implements ActionListener{
             fen.chrono = new Chrono(fen.labelTempsInt);
             fen.chrono.start();
             for (int i=0; i<fen.nbCaseMemory; i++) {
+                if (fen.impossible) fen.boutons[i].setIcon(fen.imageCarteDos);
                 if (e.getSource() == fen.boutons[i]) {
                     fen.boutons[i].setEnabled(false);
                     fen.nbCarteRetournee ++;

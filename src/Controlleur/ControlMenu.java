@@ -1,4 +1,5 @@
 package Controlleur;
+import Modele.Chrono;
 import Vue.Fenetre;
 
 import javax.swing.*;
@@ -21,10 +22,8 @@ public class ControlMenu implements ActionListener{
         if (e.getSource() == fen.menuItemRecommencer) {                 // recommence la partie avec un memory de même taille
             fen.chrono.terminate();
             fen.chrono.interrupt();
-            fen.labelTempsInt.setText("0");
-            for (int i=0;i<fen.nbCaseMemory;i++) {
-                fen.recommencer();
-            }
+            fen.labelTempsInt.setText("1");
+            fen.recommencer();
         } else if (e.getSource() == fen.menuItemScore) {                // ouvre un onglet avec les scores
             String pwd = System.getProperty("user.dir");
             File fichier = new File(pwd + "/src/Modele/score.txt");
@@ -45,6 +44,12 @@ public class ControlMenu implements ActionListener{
             fen.changer(4);
         } else if (e.getSource() == fen.menuTaille5Fois5) {            // change la taille du mémory en 5*5
             fen.changer(5);
+        } else if (e.getSource() == fen.menuItemImpossible) {            // change la taille du mémory en 5*5
+            fen.impossible = fen.menuItemImpossible.getState();
+            fen.chrono.terminate();
+            fen.chrono.interrupt();
+            fen.labelTempsInt.setText("1");
+            fen.recommencer();
         }
     }
 }
